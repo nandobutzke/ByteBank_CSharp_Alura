@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ByteBank_Alura_CSharp", "ByteBank_Alura_CSharp.csproj", "{FAD86B45-D274-4E78-9D24-3604C3D682DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAD86B45-D274-4E78-9D24-3604C3D682DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD86B45-D274-4E78-9D24-3604C3D682DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD86B45-D274-4E78-9D24-3604C3D682DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD86B45-D274-4E78-9D24-3604C3D682DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85805017-9A42-446B-B5F9-A2A649BE236C}
+	EndGlobalSection
+EndGlobal
