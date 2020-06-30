@@ -1,4 +1,5 @@
 ﻿using ByteBank_Alura_CSharp.Contas;
+using ByteBank_Alura_CSharp.Exceções;
 using ByteBank_Alura_CSharp.Funcionarios;
 using ByteBank_Alura_CSharp.Sistemas;
 using System;
@@ -13,9 +14,11 @@ namespace ByteBank_Alura_CSharp
     {
         static void Main(string[] args)
         {
-            
+
             CriarContas();
             UsuarioLogar();
+
+            TestarExceptions();
 
             Console.ReadLine();
         }
@@ -52,6 +55,31 @@ namespace ByteBank_Alura_CSharp
             Funcionario jorge = new Designer("128.923.843-01");
 
             jorge.Nome = "Jorge";
+        }
+
+        public static void TestarExceptions()
+        {
+            try
+            {
+                ContaCorrente testeConta = new ContaCorrente(121, 87292);
+                ContaCorrente testeConta2 = new ContaCorrente(123, 18223);
+
+                testeConta.Sacar(1000);
+            }
+            catch(SaldoInsuficienteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+
+
+            }
+            
+            
+            //catch(ArgumentException ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    Console.WriteLine(ex.Message);
+            //}
         }
     }
 }

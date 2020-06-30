@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ByteBank_Alura_CSharp.Exceções;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,80 +9,71 @@ namespace ByteBank_Alura_CSharp.Contas
 {
     public class ContaCorrente
     {
-        public Cliente Titular { get; set; }
+        private double innerException;
 
-        private int _agencia;
-        public int Agencia {
-            get
-            {
-                return _agencia;
-            } 
-            set 
-            { 
-                if(value <= 0)
-                {
-                    Console.WriteLine("Agência Inválida.");
-                }
-                else
-                {
-                    _agencia = value;
-                }
-            } 
-        }
-        private int _numero;
-        public int Numero { 
-            get 
-            {
-                return _numero;
-            } 
-            set 
-            {
-                if(value <= 0)
-                {
-                    Console.WriteLine("Número de conta inválido.");
-                }
-                else
-                {
-                    _numero = value;
-                }
-            } 
-        }
-        public double Saldo { get; set; }
+        public Cliente Titular { get; set; }
+        public int TotalContasCriadas { get; }
+        public double TaxaPrestacao { get; }
+        public int Agencia { get; }
+        public int Numero { get; }
+        public double Saldo { get; private set; }
 
         public ContaCorrente(int agencia, int numero)
         {
             Agencia = agencia;
             Numero = numero;
+
+            if(agencia < 0)
+            {
+                throw new ArgumentException("Agência de conta inválida.", nameof(agencia));
+            }
+
+            if(numero < 0)
+            {
+                throw new ArgumentException("Número de conta inválido.", nameof(numero));
+            }
+
+            TotalContasCriadas++;
+            TaxaPrestacao = 30 / TotalContasCriadas;
         }
 
         public double Depositar(double valor)
         {
-            return this.Saldo += valor;
+            return Saldo += valor;
         }
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
             if(valor <= 0)
             {
-                return false;
+                throw new OperacaoFinanceiraException("O valor do saque é inválido.");
             }
-            else
+
+            if(Saldo <= 0)
             {
-                this.Saldo -= valor;
-                return true;
+                throw new SaldoInsuficienteException(valor, Saldo);
             }
+            
         }
-        public bool Transferir(ContaCorrente contaDestino, double valor)
+        public void Transferir(ContaCorrente contaDestino, double valor)
         {
             if(valor <= 0)
             {
-                return false;
+                throw new OperacaoFinanceiraException("O valor da transferência é inválido.");
             }
-            else
+
+
+            try
             {
-                this.Saldo -= valor;
-                contaDestino.Depositar(valor);
-                return true;
+                Sacar(valor);
             }
+            catch(OperacaoFinanceiraException)
+            {
+                Console.WriteLine("O valor do saque é inválido");
+            }
+            
+            contaDestino.Depositar(valor);
+                
+            
         }
     }
 }
